@@ -90,11 +90,10 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-noinst_PROGRAMS = test_texthash$(EXEEXT) test_texthash2$(EXEEXT) \
-	$(am__EXEEXT_1) $(am__EXEEXT_2) $(am__EXEEXT_3)
+noinst_PROGRAMS = test_texthash$(EXEEXT) $(am__EXEEXT_1) \
+	test_imagehash$(EXEEXT) $(am__EXEEXT_2)
 @USE_AUDIO_HASH_TRUE@am__append_1 = test_audio 
-@USE_IMAGE_HASH_TRUE@am__append_2 = test_image test_mhimagehash
-@USE_VIDEO_HASH_TRUE@am__append_3 = test_video
+@USE_VIDEO_HASH_TRUE@am__append_2 = test_video
 subdir = examples
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
@@ -109,9 +108,7 @@ CONFIG_HEADER = $(top_builddir)/phash-config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 @USE_AUDIO_HASH_TRUE@am__EXEEXT_1 = test_audio$(EXEEXT)
-@USE_IMAGE_HASH_TRUE@am__EXEEXT_2 = test_image$(EXEEXT) \
-@USE_IMAGE_HASH_TRUE@	test_mhimagehash$(EXEEXT)
-@USE_VIDEO_HASH_TRUE@am__EXEEXT_3 = test_video$(EXEEXT)
+@USE_VIDEO_HASH_TRUE@am__EXEEXT_2 = test_video$(EXEEXT)
 PROGRAMS = $(noinst_PROGRAMS)
 am__test_audio_SOURCES_DIST = test_audiophash.cpp
 @USE_AUDIO_HASH_TRUE@am_test_audio_OBJECTS =  \
@@ -123,24 +120,12 @@ AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-am__test_image_SOURCES_DIST = test_imagephash.cpp
-@USE_IMAGE_HASH_TRUE@am_test_image_OBJECTS =  \
-@USE_IMAGE_HASH_TRUE@	test_imagephash.$(OBJEXT)
-test_image_OBJECTS = $(am_test_image_OBJECTS)
-@USE_IMAGE_HASH_TRUE@test_image_DEPENDENCIES =  \
-@USE_IMAGE_HASH_TRUE@	$(top_builddir)/src/libpHash.la
-am__test_mhimagehash_SOURCES_DIST = test_mhimagehash.cpp
-@USE_IMAGE_HASH_TRUE@am_test_mhimagehash_OBJECTS =  \
-@USE_IMAGE_HASH_TRUE@	test_mhimagehash.$(OBJEXT)
-test_mhimagehash_OBJECTS = $(am_test_mhimagehash_OBJECTS)
-@USE_IMAGE_HASH_TRUE@test_mhimagehash_DEPENDENCIES =  \
-@USE_IMAGE_HASH_TRUE@	$(top_builddir)/src/libpHash.la
+am_test_imagehash_OBJECTS = test_imagephash.$(OBJEXT)
+test_imagehash_OBJECTS = $(am_test_imagehash_OBJECTS)
+test_imagehash_DEPENDENCIES = $(top_builddir)/src/libpHash.la
 am_test_texthash_OBJECTS = test_texthash.$(OBJEXT)
 test_texthash_OBJECTS = $(am_test_texthash_OBJECTS)
 test_texthash_DEPENDENCIES = $(top_builddir)/src/libpHash.la
-am_test_texthash2_OBJECTS = test_texthash2.$(OBJEXT)
-test_texthash2_OBJECTS = $(am_test_texthash2_OBJECTS)
-test_texthash2_DEPENDENCIES = $(top_builddir)/src/libpHash.la
 am__test_video_SOURCES_DIST = test_dctvideohash.cpp
 @USE_VIDEO_HASH_TRUE@am_test_video_OBJECTS =  \
 @USE_VIDEO_HASH_TRUE@	test_dctvideohash.$(OBJEXT)
@@ -164,8 +149,7 @@ depcomp = $(SHELL) $(top_srcdir)/autotools/depcomp
 am__maybe_remake_depfiles = depfiles
 am__depfiles_remade = ./$(DEPDIR)/test_audiophash.Po \
 	./$(DEPDIR)/test_dctvideohash.Po \
-	./$(DEPDIR)/test_imagephash.Po ./$(DEPDIR)/test_mhimagehash.Po \
-	./$(DEPDIR)/test_texthash.Po ./$(DEPDIR)/test_texthash2.Po
+	./$(DEPDIR)/test_imagephash.Po ./$(DEPDIR)/test_texthash.Po
 am__mv = mv -f
 CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
@@ -185,13 +169,11 @@ AM_V_CXXLD = $(am__v_CXXLD_@AM_V@)
 am__v_CXXLD_ = $(am__v_CXXLD_@AM_DEFAULT_V@)
 am__v_CXXLD_0 = @echo "  CXXLD   " $@;
 am__v_CXXLD_1 = 
-SOURCES = $(test_audio_SOURCES) $(test_image_SOURCES) \
-	$(test_mhimagehash_SOURCES) $(test_texthash_SOURCES) \
-	$(test_texthash2_SOURCES) $(test_video_SOURCES)
+SOURCES = $(test_audio_SOURCES) $(test_imagehash_SOURCES) \
+	$(test_texthash_SOURCES) $(test_video_SOURCES)
 DIST_SOURCES = $(am__test_audio_SOURCES_DIST) \
-	$(am__test_image_SOURCES_DIST) \
-	$(am__test_mhimagehash_SOURCES_DIST) $(test_texthash_SOURCES) \
-	$(test_texthash2_SOURCES) $(am__test_video_SOURCES_DIST)
+	$(test_imagehash_SOURCES) $(test_texthash_SOURCES) \
+	$(am__test_video_SOURCES_DIST)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -347,14 +329,10 @@ top_srcdir = @top_srcdir@
 INCLUDES = -I$(top_srcdir)/src
 test_texthash_SOURCES = test_texthash.cpp
 test_texthash_LDADD = $(top_builddir)/src/libpHash.la
-test_texthash2_SOURCES = test_texthash2.cpp
-test_texthash2_LDADD = $(top_builddir)/src/libpHash.la
 @USE_AUDIO_HASH_TRUE@test_audio_SOURCES = test_audiophash.cpp
 @USE_AUDIO_HASH_TRUE@test_audio_LDADD = $(top_builddir)/src/libpHash.la
-@USE_IMAGE_HASH_TRUE@test_image_SOURCES = test_imagephash.cpp
-@USE_IMAGE_HASH_TRUE@test_image_LDADD = $(top_builddir)/src/libpHash.la
-@USE_IMAGE_HASH_TRUE@test_mhimagehash_SOURCES = test_mhimagehash.cpp
-@USE_IMAGE_HASH_TRUE@test_mhimagehash_LDADD = $(top_builddir)/src/libpHash.la
+test_imagehash_SOURCES = test_imagephash.cpp
+test_imagehash_LDADD = $(top_builddir)/src/libpHash.la
 @USE_VIDEO_HASH_TRUE@test_video_SOURCES = test_dctvideohash.cpp
 @USE_VIDEO_HASH_TRUE@test_video_LDADD = $(top_builddir)/src/libpHash.la
 all: all-am
@@ -399,21 +377,13 @@ test_audio$(EXEEXT): $(test_audio_OBJECTS) $(test_audio_DEPENDENCIES) $(EXTRA_te
 	@rm -f test_audio$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_audio_OBJECTS) $(test_audio_LDADD) $(LIBS)
 
-test_image$(EXEEXT): $(test_image_OBJECTS) $(test_image_DEPENDENCIES) $(EXTRA_test_image_DEPENDENCIES) 
-	@rm -f test_image$(EXEEXT)
-	$(AM_V_CXXLD)$(CXXLINK) $(test_image_OBJECTS) $(test_image_LDADD) $(LIBS)
-
-test_mhimagehash$(EXEEXT): $(test_mhimagehash_OBJECTS) $(test_mhimagehash_DEPENDENCIES) $(EXTRA_test_mhimagehash_DEPENDENCIES) 
-	@rm -f test_mhimagehash$(EXEEXT)
-	$(AM_V_CXXLD)$(CXXLINK) $(test_mhimagehash_OBJECTS) $(test_mhimagehash_LDADD) $(LIBS)
+test_imagehash$(EXEEXT): $(test_imagehash_OBJECTS) $(test_imagehash_DEPENDENCIES) $(EXTRA_test_imagehash_DEPENDENCIES) 
+	@rm -f test_imagehash$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_imagehash_OBJECTS) $(test_imagehash_LDADD) $(LIBS)
 
 test_texthash$(EXEEXT): $(test_texthash_OBJECTS) $(test_texthash_DEPENDENCIES) $(EXTRA_test_texthash_DEPENDENCIES) 
 	@rm -f test_texthash$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_texthash_OBJECTS) $(test_texthash_LDADD) $(LIBS)
-
-test_texthash2$(EXEEXT): $(test_texthash2_OBJECTS) $(test_texthash2_DEPENDENCIES) $(EXTRA_test_texthash2_DEPENDENCIES) 
-	@rm -f test_texthash2$(EXEEXT)
-	$(AM_V_CXXLD)$(CXXLINK) $(test_texthash2_OBJECTS) $(test_texthash2_LDADD) $(LIBS)
 
 test_video$(EXEEXT): $(test_video_OBJECTS) $(test_video_DEPENDENCIES) $(EXTRA_test_video_DEPENDENCIES) 
 	@rm -f test_video$(EXEEXT)
@@ -428,9 +398,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_audiophash.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_dctvideohash.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_imagephash.Po@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_mhimagehash.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_texthash.Po@am__quote@ # am--include-marker
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_texthash2.Po@am__quote@ # am--include-marker
 
 $(am__depfiles_remade):
 	@$(MKDIR_P) $(@D)
@@ -592,9 +560,7 @@ distclean: distclean-am
 	-rm -f ./$(DEPDIR)/test_audiophash.Po
 	-rm -f ./$(DEPDIR)/test_dctvideohash.Po
 	-rm -f ./$(DEPDIR)/test_imagephash.Po
-	-rm -f ./$(DEPDIR)/test_mhimagehash.Po
 	-rm -f ./$(DEPDIR)/test_texthash.Po
-	-rm -f ./$(DEPDIR)/test_texthash2.Po
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-tags
@@ -643,9 +609,7 @@ maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/test_audiophash.Po
 	-rm -f ./$(DEPDIR)/test_dctvideohash.Po
 	-rm -f ./$(DEPDIR)/test_imagephash.Po
-	-rm -f ./$(DEPDIR)/test_mhimagehash.Po
 	-rm -f ./$(DEPDIR)/test_texthash.Po
-	-rm -f ./$(DEPDIR)/test_texthash2.Po
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 

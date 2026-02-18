@@ -35,14 +35,12 @@ AC_CHECK_LIB([tiff], [TIFFOpen])
 
 AC_DEFINE(HAVE_IMAGE_HASH,1, [image hashing])
 
-AM_CONDITIONAL([USE_IMAGE_HASH],[test x$HAVE_IMAGE_HASH = x1])
-
 
 dnl these two are not used
 AM_CONDITIONAL([USE_AUDIO_HASH], [test x$HAVE_AUDIO_HASH = x1])
 AM_CONDITIONAL([USE_VIDEO_HASH], [test x$HAVE_VIDEO_HASH = x1])
 
-AC_CONFIG_FILES([Makefile src/Makefile])
+AC_CONFIG_FILES([Makefile src/Makefile examples/Makefile])
 
 AC_OUTPUT
 
