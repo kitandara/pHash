@@ -42,14 +42,9 @@
 #define __STDC_CONSTANT_MACROS
 
 #include <stdint.h>
+#include "phash-config.h"
 
-#cmakedefine HAVE_IMAGE_HASH
-#cmakedefine HAVE_AUDIO_HASH
-#cmakedefine HAVE_VIDEO_HASH
-#cmakedefine HAVE_LIBMPG123
-#cmakedefine HAVE_SYS_SYSCTL_H
 
-#define PACKAGE_STRING "${CMAKE_PROJECT_NAME}"
 
 #if defined(HAVE_IMAGE_HASH) || defined(HAVE_VIDEO_HASH)
 #define cimg_use_png 1
