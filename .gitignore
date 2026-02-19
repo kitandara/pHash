@@ -19,3 +19,4 @@ stamp-*
 aclocal*
 examples/test_imagehash
 examples/test_texthash
+*~

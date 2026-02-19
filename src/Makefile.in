@@ -137,11 +137,12 @@ am__uninstall_files_from_dir = { \
 am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(includedir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libpHash_la_LIBADD =
-am__libpHash_la_SOURCES_DIST = pHash.cpp audiophash.cpp ph_fft.c \
-	cimgffmpeg.cpp cimgffmpeg.h
+am__libpHash_la_SOURCES_DIST = pHash.cpp pHash-c.cpp audiophash.cpp \
+	ph_fft.c cimgffmpeg.cpp cimgffmpeg.h
 @USE_AUDIO_HASH_TRUE@am__objects_1 = audiophash.lo ph_fft.lo
 @USE_VIDEO_HASH_TRUE@am__objects_2 = cimgffmpeg.lo
-am_libpHash_la_OBJECTS = pHash.lo $(am__objects_1) $(am__objects_2)
+am_libpHash_la_OBJECTS = pHash.lo pHash-c.lo $(am__objects_1) \
+	$(am__objects_2)
 libpHash_la_OBJECTS = $(am_libpHash_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -166,8 +167,8 @@ DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/autotools/depcomp
 am__maybe_remake_depfiles = depfiles
 am__depfiles_remade = ./$(DEPDIR)/audiophash.Plo \
-	./$(DEPDIR)/cimgffmpeg.Plo ./$(DEPDIR)/pHash.Plo \
-	./$(DEPDIR)/ph_fft.Plo
+	./$(DEPDIR)/cimgffmpeg.Plo ./$(DEPDIR)/pHash-c.Plo \
+	./$(DEPDIR)/pHash.Plo ./$(DEPDIR)/ph_fft.Plo
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -212,7 +213,7 @@ am__can_run_installinfo = \
     n|no|NO) false;; \
     *) (install-info --version) >/dev/null 2>&1;; \
   esac
-am__include_HEADERS_DIST = pHash.h audiophash.h ph_fft.h
+am__include_HEADERS_DIST = phash-c.h audiophash.h ph_fft.h
 HEADERS = $(include_HEADERS)
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
 # Read a list of newline-separated strings from the standard input,
@@ -362,9 +363,10 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 lib_LTLIBRARIES = libpHash.la
-libpHash_la_SOURCES = pHash.cpp $(am__append_1) $(am__append_3)
+libpHash_la_SOURCES = pHash.cpp pHash-c.cpp $(am__append_1) \
+	$(am__append_3)
 libpHash_la_LDFLAGS = -no-undefined
-include_HEADERS = pHash.h $(am__append_2)
+include_HEADERS = phash-c.h $(am__append_2)
 all: all-am
 
 .SUFFIXES:
@@ -443,6 +445,7 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/audiophash.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/cimgffmpeg.Plo@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pHash-c.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pHash.Plo@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ph_fft.Plo@am__quote@ # am--include-marker
 
@@ -650,6 +653,7 @@ clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 distclean: distclean-am
 	-rm -f ./$(DEPDIR)/audiophash.Plo
 	-rm -f ./$(DEPDIR)/cimgffmpeg.Plo
+	-rm -f ./$(DEPDIR)/pHash-c.Plo
 	-rm -f ./$(DEPDIR)/pHash.Plo
 	-rm -f ./$(DEPDIR)/ph_fft.Plo
 	-rm -f Makefile
@@ -699,6 +703,7 @@ installcheck-am:
 maintainer-clean: maintainer-clean-am
 	-rm -f ./$(DEPDIR)/audiophash.Plo
 	-rm -f ./$(DEPDIR)/cimgffmpeg.Plo
+	-rm -f ./$(DEPDIR)/pHash-c.Plo
 	-rm -f ./$(DEPDIR)/pHash.Plo
 	-rm -f ./$(DEPDIR)/ph_fft.Plo
 	-rm -f Makefile

@@ -1,7 +1,7 @@
 lib_LTLIBRARIES = libpHash.la
-libpHash_la_SOURCES = pHash.cpp
+libpHash_la_SOURCES = pHash.cpp pHash-c.cpp
 libpHash_la_LDFLAGS = -no-undefined
-include_HEADERS = pHash.h
+include_HEADERS = phash-c.h
 
 if USE_AUDIO_HASH
 libpHash_la_SOURCES += audiophash.cpp ph_fft.c
